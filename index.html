@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мнение народа</title>
+    <style>
+        body {
+            background-color: #FFFFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .cool-button {
+            background-color: #e94560;
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            font-size: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #0f3460;
+            transition: all 0.1s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+        .cool-button:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #0f3460;
+        }
+    </style>
+</head>
+<body>
+    <button class="cool-button" onclick="alert('Ха! Обманул. Она работает... но по-своему.')">
+        Я не работаю
+    </button>
+</body>
+</html>
