@@ -40,12 +40,22 @@
             transform: translateY(4px);
             box-shadow: 1px 1px 0 #000000FF;
         }
+        .first-box{
+            position: absolute;
+            top: 5%;
+            left: 25%;
+            color: black
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-    <text>
-        Здравствуйте! Прошу вас об одном. НЕ НАЖИМАЙТЕ ЭТУ КНОПКУ!
-    </text>
+    <div class="first-box">
+        <text>
+            Здравствуйте! Прошу вас об одном. НЕ НАЖИМАЙТЕ ЭТУ КНОПКУ!
+        </text>
+    </div>
     <button class="cool-button" onclick="alert('Привет, Полина!')">
         Передать привет
     </button>
