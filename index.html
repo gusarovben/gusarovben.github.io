@@ -51,6 +51,7 @@
         .my-input{
             padding: 10px 15px;
             font-size: 125%;
+            width: 40%;
             border: 2px solid #e94560;
             border-radius: 8px;
             background-color: #16213e;
@@ -82,12 +83,14 @@
             Здравствуйте! Прошу вас об одном. НЕ НАЖИМАЙТЕ ЭТУ КНОПКУ!
         </text>
         <textarea placeholder="Что вас беспокоит?" class="my-post" ></textarea>
-        <div>
+        <div class="my-post">
             <input type="text" placeholder="Твой номер" class="my-input">
         </div>
-        <button class="cool-button" onclick="alert('Привет, Полина!')">
-        Передать привет
-    </button>
+        <div class="my-post">
+            <button class="cool-button" onclick="alert('Привет, Полина!')">
+                Передать привет
+            </button>
+        </div>
     </div>
 </body>
 </html>
