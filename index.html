@@ -49,8 +49,8 @@
             font-weight: bold;
         }
         .my-input{
-            padding: 3% 6%;
-            font-size: 125%;
+            padding: 3% 3%;
+            font-size: 150%;
             width: 40%;
             border: 2px solid #e94560;
             border-radius: 8px;
@@ -74,6 +74,18 @@
         }
         .element {
             margin: 5px 0px 10px 0px; /* Отступы: сверху 10 px, справа 20 px, снизу 15 px, слева 25 px */
+        }
+        @media (max-width: 600px) {
+                .first-box{
+                position: absolute;
+                top: 5%;
+                left: 5%;
+                height: 80%;
+                width: 90%;
+            }
+            .my-input{
+                width: 100%;
+            }
         }
     </style>
 </head>
