@@ -19,8 +19,6 @@
         }
         .cool-button {
             position: absolute;
-            top: 75%;
-            left: 25%;
             /*transform: translate(-50%, -50%);*/
             background-color: #F7FF00FF; /*#00DA00FF*/
             border: 3px solid black;
@@ -44,6 +42,7 @@
             position: absolute;
             top: 5%;
             left: 25%;
+            height: 75%;
             width: 50%;
             color: black;
             font-family: Arial, sans-serif;
@@ -64,9 +63,10 @@
         }
         .my-post{
             resize: none;
-            height: 500px;
+            height: 75%;
             width: 100%;
             color: black;
+            font-size: 125%;
             font-family: Arial, sans-serif;
             font-weight: bold;
             border-radius: 7px;
@@ -79,7 +79,9 @@
             Здравствуйте! Прошу вас об одном. НЕ НАЖИМАЙТЕ ЭТУ КНОПКУ!
         </text>
         <textarea placeholder="Что вас беспокоит?" class="my-post" ></textarea>
-        <input type="text" placeholder="Твой номер" class="my-input">
+        <div>
+            <input type="text" placeholder="Твой номер" class="my-input">
+        </div>
         <button class="cool-button" onclick="alert('Привет, Полина!')">
         Передать привет
     </button>
