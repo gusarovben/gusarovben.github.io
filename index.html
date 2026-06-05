@@ -63,11 +63,13 @@
             box-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
         }
         .my-post{
+            resize: none;
             height: 500px;
             width: 100%;
             color: black;
             font-family: Arial, sans-serif;
             font-weight: bold;
+            border-radius: 7px;
         }
     </style>
 </head>
@@ -78,9 +80,9 @@
         </text>
         <textarea placeholder="Что вас беспокоит?" class="my-post" ></textarea>
         <input type="text" placeholder="Твой номер" class="my-input">
-    </div>
-    <button class="cool-button" onclick="alert('Привет, Полина!')">
+        <button class="cool-button" onclick="alert('Привет, Полина!')">
         Передать привет
     </button>
+    </div>
 </body>
 </html>
