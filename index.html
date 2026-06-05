@@ -23,7 +23,7 @@
             background-color: #F7FF00FF; /*#00DA00FF*/
             border: 3px solid black;
             color: black; /*white*/
-            padding: 0.5% 1%;
+            padding: 2% 4%;
             font-size: 125%;
             border-radius: 7px;
             cursor: pointer;
@@ -49,7 +49,7 @@
             font-weight: bold;
         }
         .my-input{
-            padding: 10px 15px;
+            padding: 3% 6%;
             font-size: 125%;
             width: 40%;
             border: 2px solid #e94560;
@@ -73,7 +73,7 @@
             border-radius: 7px;
         }
         .element {
-            margin: 5px 0px 5px 0px; /* Отступы: сверху 10 px, справа 20 px, снизу 15 px, слева 25 px */
+            margin: 5px 0px 10px 0px; /* Отступы: сверху 10 px, справа 20 px, снизу 15 px, слева 25 px */
         }
     </style>
 </head>
@@ -83,14 +83,12 @@
             Здравствуйте! Прошу вас об одном. НЕ НАЖИМАЙТЕ ЭТУ КНОПКУ!
         </text>
         <textarea placeholder="Что вас беспокоит?" class="my-post" ></textarea>
-        <div class="my-post">
+        <div class="element">
             <input type="text" placeholder="Твой номер" class="my-input">
         </div>
-        <div class="my-post">
-            <button class="cool-button" onclick="alert('Привет, Полина!')">
-                Передать привет
-            </button>
-        </div>
+        <button class="cool-button" onclick="alert('Привет, Полина!')">
+            Передать привет
+        </button>
     </div>
 </body>
 </html>
