@@ -137,7 +137,7 @@
                 /*if (newPost.trim() === '') {
                     alert('Ты ничего не написал!');
                     return; // Выходим из функции
-                }*/
+                }
                 const putPost = await fetch(dbUrl1, {
                     method: 'PUT',
                     body: JSON.stringify(newPost),
@@ -147,7 +147,7 @@
                     statusDiv.textContent = `Ты нажал кнопку ${newCount} раз(а)!`;
                 } else {
                     throw new Error('Ошибка сохранения');
-                }
+                }*/
             } 
             catch (error) {
                 statusDiv.textContent = 'Ошибка связи с сервером.';
