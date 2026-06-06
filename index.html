@@ -117,17 +117,23 @@
                 const data = await getResponse.json();
                 const currentCount = data || 0; // Если база пуста, начинаем с 0
                 const newCount = currentCount + 1;
+                
+                const newPost = postfrom.value;
                 const putResponse = await fetch(dbUrl, {
                     method: 'PUT',
-                    body: JSON.stringify(newCount),
+                    body: JSON.stringify({
+                        count: newCount,
+                        text: newPost
+                    }),
                     headers: { 'Content-Type': 'application/json' }
                 });
+                
                 if (putResponse.ok) {
                     statusDiv.textContent = `Ты нажал кнопку ${newCount} раз(а)!`;
                 } else {
                     throw new Error('Ошибка сохранения');
                 }
-                const newPost = postfrom.value;
+                
                 /*if (newPost.trim() === '') {
                     alert('Ты ничего не написал!');
                     return; // Выходим из функции
