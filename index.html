@@ -4,40 +4,15 @@
     <meta name="yandex-verification" content="82a0c4111512f1b2" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Желание народа</title>
+    <title>напиши письмо</title>
     <style>
         body {
             background-color: #FFFFFFFF;
-            /*color: black;*/
-            /*display: flex;
-            justify-content: center;
-            align-items: center;*/
             height: 100vh;
             margin: 0;
             font-size: 20px;
             font-family: Arial, sans-serif;
             position: relative;
-        }
-        .cool-button {
-            /*position: absolute*/;
-            /*transform: translate(-50%, -50%);*/
-            background-color: #F7FF00FF; /*#00DA00FF*/
-            border: 3px solid black;
-            color: black; /*white*/
-            padding: 1% 1%;
-            font-size: 20px;
-            border-radius: 7px;
-            cursor: pointer;
-            box-shadow: 2px 5px 0 #5F5F5FFF; /*#005C00FF*/
-            transition: all 0.1s ease;
-            text-transform: uppercase;
-            letter-spacing: 10%;
-            font-weight: bold;
-        }
-        .cool-button:active {
-            transform: translateX(1px);
-            transform: translateY(4px);
-            box-shadow: 1px 1px 0 #000000FF;
         }
         .first-box{
             position: absolute;
@@ -49,6 +24,16 @@
             font-family: Arial, sans-serif;
             font-weight: bold;
         }
+        .my-post{
+            resize: none;
+            height: 75%;
+            width: 100%;
+            color: black;
+            font-size: 125%;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            border-radius: 7px;
+        }
         .my-input{
             padding: 1% 1%;
             font-size: 20px;
@@ -59,19 +44,24 @@
             color: white;
             outline: none;
         }
-        .my-input:focus {
-            border-color: #ff6b81;
-            box-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
-        }
-        .my-post{
-            resize: none;
-            height: 75%;
-            width: 100%;
+        .cool-button {
+            background-color: #F7FF00FF;
+            border: 3px solid black;
             color: black;
-            font-size: 125%;
-            font-family: Arial, sans-serif;
-            font-weight: bold;
+            padding: 1% 1%;
+            font-size: 20px;
             border-radius: 7px;
+            cursor: pointer;
+            box-shadow: 2px 5px 0 #5F5F5FFF;
+            transition: all 0.1s ease;
+            text-transform: uppercase;
+            letter-spacing: 10%;
+            font-weight: bold;
+        }
+        .cool-button:active {
+            transform: translateX(1px);
+            transform: translateY(4px);
+            box-shadow: 1px 1px 0 #000000FF;
         }
         .element {
             margin: 5px 0px 10px 0px; /* Отступы: сверху 10 px, справа 20 px, снизу 15 px, слева 25 px */
@@ -97,10 +87,10 @@
 </head>
 <body>
     <div class="first-box">
-        <text>Здравствуйте! Прошу вас об одном. НЕ НАЖИМАЙТЕ ЭТУ КНОПКУ!</text>
+        <text>Здравствуйте! Напишите письмо, потом отправьте его.</text>
         <textarea id="idpost" placeholder="Что вас беспокоит?" class="my-post" ></textarea>
         <div class="element"><input type="text" placeholder="Твой номер" class="my-input"></div>
-        <button id="idclickBtn" class="cool-button" /*onclick="alert('Привет, Полина!'*/)">Передать привет</button>
+        <button id="idclickBtn" class="cool-button">Передать привет</button>
         <div id="idstatus" class="element"></div>
     </div>
     <script>
@@ -117,7 +107,6 @@
                 const data = await getResponse.json();
                 const currentCount = data.count || 0; // Если база пуста, начинаем с 0
                 const newCount = currentCount + 1;
-                
                 const newPost = postfrom.value;
                 const putResponse = await fetch(dbUrl, {
                     method: 'PUT',
@@ -127,27 +116,15 @@
                     }),
                     headers: { 'Content-Type': 'application/json' }
                 });
-                
+                if (newPost.trim() === '') {
+                    alert('Ты ничего не написал!');
+                    return; // Выходим из функции
+                }
                 if (putResponse.ok) {
                     statusDiv.textContent = `Ты нажал кнопку ${newCount} раз(а)!`;
                 } else {
                     throw new Error('Ошибка сохранения');
                 }
-                
-                /*if (newPost.trim() === '') {
-                    alert('Ты ничего не написал!');
-                    return; // Выходим из функции
-                }
-                const putPost = await fetch(dbUrl1, {
-                    method: 'PUT',
-                    body: JSON.stringify(newPost),
-                    headers: { 'Content-Type': 'application/json' }
-                });
-                if (putPost.ok) {
-                    statusDiv.textContent = `Ты нажал кнопку ${newCount} раз(а)!`;
-                } else {
-                    throw new Error('Ошибка сохранения');
-                }*/
             } 
             catch (error) {
                 statusDiv.textContent = 'Ошибка связи с сервером.';
@@ -158,3 +135,21 @@
     </script>
 </body>
 </html>
+/*
+body {
+color: black;
+display: flex;
+justify-content: center;
+align-items: center;
+
+.cool-button {
+position: absolute;
+transform: translate(-50%, -50%);
+
+.my-input:focus {
+    border-color: #ff6b81;
+    box-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
+
+botton...onclick="alert('Привет, Полина!')">
+}
+*/
