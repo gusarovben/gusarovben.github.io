@@ -108,17 +108,17 @@
         const dbUrl1 = "https://ne-dolgiy-yaschik-default-rtdb.europe-west1.firebasedatabase.app/post.json";
         const button = document.getElementById('idclickBtn');
         const statusDiv = document.getElementById('idstatus');
-        const postfrom = document.getElementById('idpost').value;
+        const postfrom = document.getElementById('idpost');
         button.addEventListener('click', async () => {
             button.disabled = true;
             statusDiv.textContent = "Отправляю нажатие...";
             try {
                 const getResponse = await fetch(dbUrl);
                 const data = await getResponse.json();
-                const currentCount = data?.count || 0; // Если база пуста, начинаем с 0
+                const currentCount = data.count || 0; // Если база пуста, начинаем с 0
                 const newCount = currentCount + 1;
                 
-                const newPost = postfrom;
+                const newPost = postfrom.value;
                 const putResponse = await fetch(dbUrl, {
                     method: 'PUT',
                     body: JSON.stringify({
