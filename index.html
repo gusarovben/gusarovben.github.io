@@ -108,7 +108,7 @@
         const dbUrl1 = "https://ne-dolgiy-yaschik-default-rtdb.europe-west1.firebasedatabase.app/post.json";
         const button = document.getElementById('idclickBtn');
         const statusDiv = document.getElementById('idstatus');
-        const postfrom = document.getElementById('idpost');
+        const postfrom = document.getElementById('idpost').value;
         button.addEventListener('click', async () => {
             button.disabled = true;
             statusDiv.textContent = "Отправляю нажатие...";
@@ -127,8 +127,12 @@
                 } else {
                     throw new Error('Ошибка сохранения');
                 }
-                var newPost.textContent = postfrom;
-                var putPost = await fetch(dbUrl1, {
+                const newPost = postfrom.value;
+                if (message.trim() === '') {
+                    alert('Ты ничего не написал!');
+                    return; // Выходим из функции
+                }
+                const putPost = await fetch(dbUrl1, {
                     method: 'POST',
                     body: JSON.stringify(newPost),
                     headers: { 'Content-Type': 'application/json' }
