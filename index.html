@@ -105,7 +105,7 @@
     </div>
     <script>
         const dbUrl = "https://ne-dolgiy-yaschik-default-rtdb.europe-west1.firebasedatabase.app/clicks.json";
-        const dbUrl1 = "https://ne-dolgiy-yaschik-default-rtdb.europe-west1.firebasedatabase.app/clicks.json";
+        const dbUrl1 = "https://ne-dolgiy-yaschik-default-rtdb.europe-west1.firebasedatabase.app/post.json";
         const button = document.getElementById('idclickBtn');
         const statusDiv = document.getElementById('idstatus');
         const postfrom = document.getElementById('idpost');
@@ -138,7 +138,8 @@
                 } else {
                     throw new Error('Ошибка сохранения');
                 }
-            } catch (error) {
+            } 
+            catch (error) {
                 statusDiv.textContent = 'Ошибка связи с сервером.';
                 console.error(error);
             }
