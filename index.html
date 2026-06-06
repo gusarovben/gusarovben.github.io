@@ -128,7 +128,7 @@
                     throw new Error('Ошибка сохранения');
                 }
                 const newPost = postfrom.value;
-                if (message.trim() === '') {
+                if (newPost.trim() === '') {
                     alert('Ты ничего не написал!');
                     return; // Выходим из функции
                 }
