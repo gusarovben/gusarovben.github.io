@@ -104,7 +104,7 @@
         <div id="idstatus" class="element"></div>
     </div>
     <script>
-        const dbUrl = "https://ne-dolgiy-yaschik-default-rtdb.europe-west1.firebasedatabase.app/clicks/count.json";
+        const dbUrl = "https://ne-dolgiy-yaschik-default-rtdb.europe-west1.firebasedatabase.app/clicks.json";
         const dbUrl1 = "https://ne-dolgiy-yaschik-default-rtdb.europe-west1.firebasedatabase.app/post.json";
         const button = document.getElementById('idclickBtn');
         const statusDiv = document.getElementById('idstatus');
@@ -115,7 +115,7 @@
             try {
                 const getResponse = await fetch(dbUrl);
                 const data = await getResponse.json();
-                const currentCount = data || 0; // Если база пуста, начинаем с 0
+                const currentCount = data?.count || 0; // Если база пуста, начинаем с 0
                 const newCount = currentCount + 1;
                 
                 const newPost = postfrom;
