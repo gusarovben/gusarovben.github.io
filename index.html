@@ -119,7 +119,7 @@
                 if (newPost.trim() === '') {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = `Нельзя отправить пустое сообщение.`;
-                    return;
+                    break;
                 }
                 if (putResponse.ok) {
                     statusDiv.textContent = `Сообщение успешно отправлено!`;
