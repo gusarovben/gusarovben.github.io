@@ -117,39 +117,42 @@
                     headers: { 'Content-Type': 'application/json' }
                 });
                 if (newPost.trim() === '') {
-                    alert('Ты ничего не написал!');
-                    return; // Выходим из функции
+                    /*alert('Ты ничего не написал!');*/
+                    statusDiv.style.color = 'red';
+                    statusDiv.textContent = `Нельзя отправить пустое сообщение.`;
+                    return;
                 }
                 if (putResponse.ok) {
-                    statusDiv.textContent = `Ты нажал кнопку ${newCount} раз(а)!`;
+                    statusDiv.textContent = `Сообщение успешно отправлено!`;
                 } else {
                     throw new Error('Ошибка сохранения');
                 }
             } 
             catch (error) {
+                statusDiv.style.color = 'red';
                 statusDiv.textContent = 'Ошибка связи с сервером.';
                 console.error(error);
             }
             button.disabled = false;
         });
     </script>
+    /*
+    body {
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    .cool-button {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    
+    .my-input:focus {
+        border-color: #ff6b81;
+        box-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
+    
+    botton...onclick="alert('Привет, Полина!')">
+    }
+    */
 </body>
 </html>
-/*
-body {
-color: black;
-display: flex;
-justify-content: center;
-align-items: center;
-
-.cool-button {
-position: absolute;
-transform: translate(-50%, -50%);
-
-.my-input:focus {
-    border-color: #ff6b81;
-    box-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
-
-botton...onclick="alert('Привет, Полина!')">
-}
-*/
