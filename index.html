@@ -120,11 +120,11 @@
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = `Нельзя отправить пустое сообщение.`;
                     break;
-                }
-                if (putResponse.ok) {
-                    statusDiv.textContent = `Сообщение успешно отправлено!`;
-                } else {
-                    throw new Error('Ошибка сохранения');
+                        if (putResponse.ok) {
+                        statusDiv.textContent = `Сообщение успешно отправлено!`;
+                    } else {
+                        throw new Error('Ошибка сохранения');
+                    }
                 }
             } 
             catch (error) {
