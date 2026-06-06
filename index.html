@@ -133,7 +133,7 @@
                     return; // Выходим из функции
                 }*/
                 const putPost = await fetch(dbUrl1, {
-                    method: 'POST',
+                    method: 'PUT',
                     body: JSON.stringify(newPost),
                     headers: { 'Content-Type': 'application/json' }
                 });
