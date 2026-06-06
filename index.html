@@ -126,7 +126,7 @@
                 } else {
                     throw new Error('Ошибка сохранения');
                 }
-                string newPost = postfrom.text();
+                /*string newPost = postfrom.text();
                 string putPost = await fetch(dbUrl, {
                     method: 'POST',
                     body: JSON.stringify(newPost),
@@ -136,7 +136,7 @@
                     statusDiv.textContent = `Ты нажал кнопку ${newCount} раз(а)!`;
                 } else {
                     throw new Error('Ошибка сохранения');
-                }
+                }*/
             } catch (error) {
                 statusDiv.textContent = 'Ошибка связи с сервером.';
                 console.error(error);
