@@ -108,18 +108,18 @@
                 const currentCount = data.count || 0; // Если база пуста, начинаем с 0
                 const newCount = currentCount + 1;
                 const newPost = postfrom.value;
-                const putResponse = await fetch(dbUrl, {
-                    method: 'PUT',
-                    body: JSON.stringify({
-                        count: newCount,
-                        text: newPost
-                    }),
-                    headers: { 'Content-Type': 'application/json' }
-                });
                 if (newPost.trim() === '') {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = `Нельзя отправить пустое сообщение.`;
                 } else {
+                    const putResponse = await fetch(dbUrl, {
+                        method: 'PUT',
+                        body: JSON.stringify({
+                            count: newCount,
+                            text: newPost
+                        }),
+                        headers: { 'Content-Type': 'application/json' }
+                    });
                     if (putResponse.ok) {
                         statusDiv.textContent = `Сообщение успешно отправлено!`;
                     } else {
