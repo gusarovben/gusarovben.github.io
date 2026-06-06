@@ -40,7 +40,7 @@
             box-shadow: 1px 1px 0 #000000FF;
         }
         .first-box{
-            position: absolute;
+            /*position: absolute*/;
             top: 5%;
             left: 25%;
             height: 75%;
@@ -101,7 +101,7 @@
         <textarea id="idpost" placeholder="Что вас беспокоит?" class="my-post" ></textarea>
         <div class="element"><input type="text" placeholder="Твой номер" class="my-input"></div>
         <button id="idclickBtn" class="cool-button" /*onclick="alert('Привет, Полина!'*/)">Передать привет</button>
-        <div id="idstatus">Ожидание действий</div>
+        <div id="idstatus" class="element"></div>
     </div>
     <script>
         const dbUrl = "https://ne-dolgiy-yaschik-default-rtdb.europe-west1.firebasedatabase.app/clicks.json";
