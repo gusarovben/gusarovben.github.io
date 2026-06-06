@@ -119,8 +119,8 @@
                 if (newPost.trim() === '') {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = `Нельзя отправить пустое сообщение.`;
-                    break;
-                        if (putResponse.ok) {
+                    coutinue;
+                    if (putResponse.ok) {
                         statusDiv.textContent = `Сообщение успешно отправлено!`;
                     } else {
                         throw new Error('Ошибка сохранения');
