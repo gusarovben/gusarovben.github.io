@@ -76,6 +76,11 @@
         .element {
             margin: 5px 0px 10px 0px; /* Отступы: сверху 10 px, справа 20 px, снизу 15 px, слева 25 px */
         }
+        #status {
+            color: white;
+            font-size: 14px;
+            min-height: 20px;
+        }
         @media (max-width: 600px) {
                 .first-box{
                 position: absolute;
@@ -92,16 +97,40 @@
 </head>
 <body>
     <div class="first-box">
-        <text>
-            Здравствуйте! Прошу вас об одном. НЕ НАЖИМАЙТЕ ЭТУ КНОПКУ!
-        </text>
+        <text>Здравствуйте! Прошу вас об одном. НЕ НАЖИМАЙТЕ ЭТУ КНОПКУ!</text>
         <textarea placeholder="Что вас беспокоит?" class="my-post" ></textarea>
-        <div class="element">
-            <input type="text" placeholder="Твой номер" class="my-input">
-        </div>
-        <button class="cool-button" onclick="alert('Привет, Полина!')">
-            Передать привет
-        </button>
+        <div class="element"><input type="text" placeholder="Твой номер" class="my-input"></div>
+        <button id="clickBtn" class="cool-button" /*onclick="alert('Привет, Полина!'*/)">Передать привет</button>
+        <div id="status"></div>
     </div>
+    <script>
+        const dbUrl = "https://https://ne-dolgiy-yaschik-default-rtdb.europe-west1.firebasedatabase.app/";
+        const button = document.getElementById('clickBtn');
+        const statusDiv = document.getElementById('status');
+        button.addEventListener('click', async () => {
+            button.disabled = true;
+            statusDiv.textContent = 'Отправляю нажатие...';
+            try {
+                const getResponse = await fetch(dbUrl);
+                const data = await getResponse.json();
+                const currentCount = data || 0; // Если база пуста, начинаем с 0
+                const newCount = currentCount + 1;
+                const putResponse = await fetch(dbUrl, {
+                    method: 'PUT',
+                    body: JSON.stringify(newCount),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                if (putResponse.ok) {
+                    statusDiv.textContent = `Ты нажал кнопку ${newCount} раз(а)!`;
+                } else {
+                    throw new Error('Ошибка сохранения');
+                }
+            } catch (error) {
+                statusDiv.textContent = 'Ошибка связи с сервером.';
+                console.error(error);
+            }
+            button.disabled = false;
+        });
+    </script>
 </body>
 </html>
