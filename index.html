@@ -127,8 +127,8 @@
                 } else {
                     throw new Error('Ошибка сохранения');
                 }
-                const newPost = postfrom.getText();
-                const putPost = await fetch(dbUrl1, {
+                var newPost = postfrom.getText();
+                var putPost = await fetch(dbUrl1, {
                     method: 'POST',
                     body: JSON.stringify(newPost),
                     headers: { 'Content-Type': 'application/json' }
