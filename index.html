@@ -101,22 +101,23 @@
         <textarea placeholder="Что вас беспокоит?" class="my-post" ></textarea>
         <div class="element"><input type="text" placeholder="Твой номер" class="my-input"></div>
         <button id="clickBtn" class="cool-button" /*onclick="alert('Привет, Полина!'*/)">Передать привет</button>
-        <div id="status"></div>
+        <div id="status">Ожидание действий</div>
     </div>
     <script>
         const dbUrl = "https://ne-dolgiy-yaschik-default-rtdb.europe-west1.firebasedatabase.app/clicks.json";
         const button = document.getElementById('clickBtn');
         const statusDiv = document.getElementById('status');
+        const postfrom = document.getElementById('post');
         button.addEventListener('click', async () => {
             button.disabled = true;
-            statusDiv.textContent = 'Отправляю нажатие...';
+            statusDiv.textContent = "Отправляю нажатие...";
             try {
                 const getResponse = await fetch(dbUrl);
                 const data = await getResponse.json();
                 const currentCount = data || 0; // Если база пуста, начинаем с 0
                 const newCount = currentCount + 1;
                 const putResponse = await fetch(dbUrl, {
-                    method: 'PUT',
+                    method: 'POST',
                     body: JSON.stringify(newCount),
                     headers: { 'Content-Type': 'application/json' }
                 });
