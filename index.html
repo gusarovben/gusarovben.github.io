@@ -118,7 +118,7 @@
                 const currentCount = data || 0; // Если база пуста, начинаем с 0
                 const newCount = currentCount + 1;
                 
-                const newPost = postfrom.value;
+                const newPost = postfrom;
                 const putResponse = await fetch(dbUrl, {
                     method: 'PUT',
                     body: JSON.stringify({
