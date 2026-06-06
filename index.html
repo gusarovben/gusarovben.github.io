@@ -121,6 +121,7 @@
                         headers: { 'Content-Type': 'application/json' }
                     });
                     if (putResponse.ok) {
+                        statusDiv.style.color = 'green';
                         statusDiv.textContent = `Сообщение успешно отправлено!`;
                     } else {
                         throw new Error('Ошибка сохранения');
