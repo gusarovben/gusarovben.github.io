@@ -112,9 +112,9 @@
                     statusDiv.textContent = `Нельзя отправить пустое сообщение.`;
                 } else {
                     const putResponse = await fetch(dbUrl, {
-                        method: 'PUT',
+                        method: 'POST',
                         body: JSON.stringify({
-                            count: newCount,
+                            count: 1,
                             text: newPost
                         }),
                         headers: { 'Content-Type': 'application/json' }
