@@ -34,7 +34,7 @@
             font-weight: bold;
             border-radius: 7px;
         }
-        .my-input{
+        .my-number{
             padding: 1% 1%;
             font-size: 20px;
             width: 40%;
@@ -44,7 +44,7 @@
             color: white;
             outline: none;
         }
-        .cool-button {
+        .send-button {
             background-color: #F7FF00FF;
             border: 3px solid black;
             color: black;
@@ -58,7 +58,7 @@
             letter-spacing: 10%;
             font-weight: bold;
         }
-        .cool-button:active {
+        .send-button:active {
             transform: translateX(1px);
             transform: translateY(4px);
             box-shadow: 1px 1px 0 #000000FF;
@@ -79,7 +79,7 @@
                 height: 80%;
                 width: 90%;
             }
-            .my-input{
+            .my-number{
                 width: 95%;
             }
         }
@@ -89,30 +89,37 @@
     <div class="first-box">
         <text>Здравствуйте! Напишите письмо, потом отправьте его.</text>
         <textarea id="idpost" placeholder="Что вас беспокоит?" class="my-post" ></textarea>
-        <div class="element"><input type="text" placeholder="Твой номер" class="my-input"></div>
-        <button id="idclickBtn" class="cool-button">Передать привет</button>
+        <div class="element"><input id="idnumber" type="text" placeholder="Твой номер" class="my-number"></div>
+        <button id="idsendbutton" class="send-button">Передать привет</button>
         <div id="idstatus" class="element"></div>
     </div>
     <script>
-        const dbUrl = "https://ne-dolgiy-yaschik-default-rtdb.europe-west1.firebasedatabase.app/clicks.json";
-        const button = document.getElementById('idclickBtn');
+        const dbUrl = "https://ne-dolgiy-yaschik-default-rtdb.europe-west1.firebasedatabase.app/yaschik";
+        const sendbutton = document.getElementById('idsendbutton');
         const statusDiv = document.getElementById('idstatus');
-        const postfrom = document.getElementById('idpost');
-        button.addEventListener('click', async () => {
-            button.disabled = true;
+        const mypost = document.getElementById('idpost');
+        const mynumber = document.getElementById('idnumber');
+        sendbutton.addEventListener('click', async () => {
+            sendbutton.disabled = true;
+            statusDiv.style.color = 'black';
             statusDiv.textContent = "Отправляю нажатие...";
             try {
                 const getResponse = await fetch(dbUrl);
                 const data = await getResponse.json();
                 const currentCount = data.count || 0; // Если база пуста, начинаем с 0
                 const newCount = currentCount + 1;
-                const newPost = postfrom.value;
+                const newPost = mypost.value;
+                const number = mynumber.value;
                 if (newPost.trim() === '') {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = `Нельзя отправить пустое сообщение.`;
+                } else if (number === '') {
+                    statusDiv.style.color = 'red';
+                    statusDiv.textContent = 'Введи свой номер';
                 } else {
-                    const putResponse = await fetch(dbUrl, {
-                        method: 'POST',
+                    const userUrl = dbUrl + '/' + encodeURIComponent(number) + '.json';
+                    const putResponse = await fetch(userUrl, {
+                        method: 'PUT',
                         body: JSON.stringify({
                             count: 1,
                             text: newPost
@@ -132,7 +139,7 @@
                 statusDiv.textContent = 'Ошибка связи с сервером.';
                 console.error(error);
             }
-            button.disabled = false;
+            sendbutton.disabled = false;
         });
     </script>
 </body>
