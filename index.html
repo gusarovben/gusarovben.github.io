@@ -106,8 +106,8 @@
             try {
                 const getResponse = await fetch(dbUrl);
                 const data = await getResponse.json();
-                const currentCount = data.count || 0; // Если база пуста, начинаем с 0
-                const newCount = currentCount + 1;
+                //const currentCount = data.count || 0; // Если база пуста, начинаем с 0
+                //const newCount = currentCount + 1;
                 const newPost = mypost.value;
                 const number = mynumber.value;
                 if (newPost.trim() === '') {
