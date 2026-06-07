@@ -122,7 +122,8 @@
                         method: 'PUT',
                         body: JSON.stringify({
                             count: 1,
-                            text: newPost
+                            text: newPost,
+                            time: new Date().toLocaleString()
                         }),
                         headers: { 'Content-Type': 'application/json' }
                     });
