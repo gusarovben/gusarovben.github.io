@@ -126,12 +126,14 @@
                 //const newCount = currentCount + 1;
                 const newPost = mypost.value;
                 const number = mynumber.value;
+                const phone = phoneInput.value.trim();
+                const phoneRegex = /^\+7 (\d{3}) \d{3}-\d{2}-\d{2}$/;
                 if (newPost.trim() === '') {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = `Нельзя отправить пустое сообщение.`;
-                } else if (number.trim() === '') {
+                } else if (!phoneRegex.test(phone)) {
                     statusDiv.style.color = 'red';
-                    statusDiv.textContent = 'Введи свой номер';
+                    statusDiv.textContent = 'Введи телефон в формате +7 (XXX) XXX-XX-XX';
                 } else {
                     const userUrl = dbUrl + '/' + encodeURIComponent(number) + '.json';
                     const putResponse = await fetch(userUrl, {
