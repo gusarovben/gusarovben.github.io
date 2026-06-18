@@ -89,12 +89,12 @@
     <div class="first-box">
         <text>Здравствуйте! Напишите письмо, потом отправьте его.</text>
         <textarea id="idpost" placeholder="Что вас беспокоит?" class="my-post" ></textarea>
-        <div class="element"><input id="idnumber" type="text" placeholder="Твой номер" class="my-number"></div>
+        <div class="element"><input id="idnumber" type="tel" placeholder="+7-XXX-XXX-XX-XX" maxlength="16" class="my-number"></div>
         <button id="idsendbutton" class="send-button">Передать привет</button>
         <div id="idstatus" class="element"></div>
     </div>
     <script>
-        const phoneInput = document.getElementById('phoneInput');
+        const phoneInput = document.getElementById('idnumber');
         phoneInput.addEventListener('input', (e) => {
             let value = phoneInput.value.replace(/\D/g, '');
             if (value.length > 0 && value[0] !== '7') {
