@@ -116,9 +116,9 @@
         statusDiv.textContent = "Статус системы.";
         const checkUrl = dbUrl + '.json?shallow=true';
         statusDiv.textContent = "Обращаюсь к базе 0.";
-        const checkResponse = await fetch(checkUrl);
+        //const checkResponse = await fetch(checkUrl);
         statusDiv.textContent = "Обращаюсь к базе 1.";
-        const keys = await checkResponse.json();
+        //const keys = await checkResponse.json();
         statusDiv.textContent = "Обращаюсь к базе 2.";
         const checknumber = document.getElementById('otdelInput').value.trim().toLowerCase();
         
