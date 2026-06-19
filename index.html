@@ -135,7 +135,7 @@
                 statusDiv.textContent = "Обращаюсь к базе 1.";
                 const keys = await checkResponse.json();
                 statusDiv.textContent = "Обращаюсь к базе 2.";
-                const checknumber = document.getElementById('idnumber').value.trim().toLowerCase();
+                const checknumber = phoneInput.value.trim().toLowerCase();
                 
                 if (newPost.trim() === '') {
                     statusDiv.style.color = 'red';
