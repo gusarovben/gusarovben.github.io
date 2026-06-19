@@ -140,7 +140,7 @@
                 } else if (!phoneRegex.test(phone)) {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = 'Введи телефон в формате +7 (XXX) XXX-XX-XX.';
-                } if (keys === null || !(cheknumber in keys)) {
+                } else if (keys === null || !(cheknumber in keys)) {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = 'Пользователь с таким номером не зарегистрирован.';
                 } else {
