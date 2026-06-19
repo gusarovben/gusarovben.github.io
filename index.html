@@ -168,7 +168,7 @@
                 } else if (keys === null || !(checknumber in keys)) {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = 'Пользователь с таким номером не зарегистрирован.';
-                } else if (countcount <= maxcount) {
+                } else if (countcount === maxcount + 1) {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = 'Вы исчерпали свой лимит на этот месяц ' + maxcount + ' штук.';
                 } else {
