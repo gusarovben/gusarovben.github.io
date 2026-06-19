@@ -116,6 +116,7 @@
             'january', 'february', 'march', 'april', 'may', 'june',
             'july', 'august', 'september', 'october', 'november', 'december'
         ];
+        const maxcount = 3;
     </script>
     <script>
         sendbutton.addEventListener('click', async () => {
@@ -141,6 +142,20 @@
                 const monthName = months[now.getMonth()];
                 const year = now.getFullYear();
                 const datePrefix = monthName + year;
+
+                let i = 1;
+                const countcount = 0;
+                while (i <= maxcount) {
+                    const checkUrl1 = dbUrl + '/' + encodeURIComponent(number) + '.json?shallow=true';
+                    const checkResponse1 = await fetch(checkUrl1);
+                    const keys1 = await checkResponse1.json();
+                    const number1 = document.getElementById('idnumber').value.trim().toLowerCase();
+                    if (keys1 === null || !('count' + text(i) in keys1)) {
+                        countcount = i;
+                    }
+                    i++;
+                }
+                const countPrefix = 'count' + text(countcount);
                 
                 if (newPost.trim() === '') {
                     statusDiv.style.color = 'red';
@@ -151,14 +166,16 @@
                 } else if (keys === null || !(checknumber in keys)) {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = 'Пользователь с таким номером не зарегистрирован.';
+                } else if (i === maxcount) {
+                    statusDiv.style.color = 'red';
+                    statusDiv.textContent = 'Вы исчерпали свой лимит на этот месяц ' + text(maxcount) + ' штук.';
                 } else {
-                    const userUrl = dbUrl + '/' + encodeURIComponent(number) + '/' + encodeURIComponent(datePrefix) + '.json';
+                    const userUrl = dbUrl + '/' + encodeURIComponent(number) + '/' + encodeURIComponent(datePrefix) + '/' + encodeURIComponent(countPrefix) + '.json';
                     statusDiv.style.color = 'black';
                     statusDiv.textContent = "Отправляю письмо.";
                     const putResponse = await fetch(userUrl, {
                         method: 'PUT',
                         body: JSON.stringify({
-                            //count: 1,
                             text: newPost,
                             time: new Date().toLocaleString()
                         }),
