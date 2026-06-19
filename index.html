@@ -145,7 +145,7 @@
 
                 let i = 1;
                 let countcount = 0;
-                while (i < maxcount) {
+                while (i <= maxcount + 1) {
                     const checkUrl1 = dbUrl + '/' + encodeURIComponent(number) + '/' + encodeURIComponent(datePrefix) + '.json?shallow=true';
                     const checkResponse1 = await fetch(checkUrl1);
                     const keys1 = await checkResponse1.json();
