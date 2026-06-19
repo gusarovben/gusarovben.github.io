@@ -112,17 +112,18 @@
         const statusDiv = document.getElementById('idstatus');
         const mypost = document.getElementById('idpost');
         const mynumber = document.getElementById('idnumber');
-        
+        statusDiv.style.color = 'black';
+        statusDiv.textContent = "Статус системы.";
         const checkUrl = dbUrl + '.json?shallow=true';
-        /*
+        statusDiv.textContent = "Обращаюсь к базе 0.";
         const checkResponse = await fetch(checkUrl);
-        */
+        statusDiv.textContent = "Обращаюсь к базе 1.";
         const keys = await checkResponse.json();
-        const checknumber = mynumber.value.trim().toLowerCase();
+        statusDiv.textContent = "Обращаюсь к базе 2.";
+        const checknumber = document.getElementById('otdelInput').value.trim().toLowerCase();
         
         sendbutton.addEventListener('click', async () => {
             sendbutton.disabled = true;
-            statusDiv.style.color = 'black';
             statusDiv.textContent = "Проверяю всё...";
             try {
                 //const getResponse = await fetch(dbUrl);
