@@ -151,10 +151,9 @@
                     const keys1 = await checkResponse1.json();
                     const countPrefix0 = 'count' + i;
                     const number1 = countPrefix0.trim().toLowerCase();
-                    if (i === 1 && (number1 in keys1)) {
-                        countcount = i + 1;
-                    } else if ((number1 in keys1)) {
-                        countcount = i + 1;
+                    if (!(number1 in keys1)) {
+                        countcount = i;
+                        break;
                     }
                     i++;
                 }
@@ -169,7 +168,7 @@
                 } else if (keys === null || !(checknumber in keys)) {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = 'Пользователь с таким номером не зарегистрирован.';
-                } else if (i === maxcount) {
+                } else if (countcount <= maxcount) {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = 'Вы исчерпали свой лимит на этот месяц ' + maxcount + ' штук.';
                 } else {
