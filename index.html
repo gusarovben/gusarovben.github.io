@@ -112,6 +112,10 @@
         const sendbutton = document.getElementById('idsendbutton');
         const statusDiv = document.getElementById('idstatus');
         const mypost = document.getElementById('idpost');
+        const months = [
+            'january', 'february', 'march', 'april', 'may', 'june',
+            'july', 'august', 'september', 'october', 'november', 'december'
+        ];
     </script>
     <script>
         sendbutton.addEventListener('click', async () => {
@@ -126,11 +130,17 @@
                 const number = mynumber.value;
                 const phone = mynumber.value.trim();
                 const phoneRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
+                
                 const checkResponse = await fetch(checkUrl);
                 statusDiv.textContent = "Подключаюсь к базе.";
                 const keys = await checkResponse.json();
                 statusDiv.textContent = "Проверяю номер.";
                 const checknumber = mynumber.value.trim().toLowerCase();
+
+                const now = new Date();
+                const monthName = months[now.getMonth()];
+                const year = now.getFullYear();
+                const datePrefix = monthName + year;
                 
                 if (newPost.trim() === '') {
                     statusDiv.style.color = 'red';
@@ -142,7 +152,7 @@
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = 'Пользователь с таким номером не зарегистрирован.';
                 } else {
-                    const userUrl = dbUrl + '/' + encodeURIComponent(number) + '.json';
+                    const userUrl = dbUrl + '/' + encodeURIComponent(number) + '/' + encodeURIComponent(datePrefix) + '.json';
                     statusDiv.style.color = 'black';
                     statusDiv.textContent = "Отправляю письмо.";
                     const putResponse = await fetch(userUrl, {
