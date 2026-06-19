@@ -149,8 +149,9 @@
                     const checkUrl1 = dbUrl + '/' + encodeURIComponent(number) + '.json?shallow=true';
                     const checkResponse1 = await fetch(checkUrl1);
                     const keys1 = await checkResponse1.json();
-                    const number1 = document.getElementById('idnumber').value.trim().toLowerCase();
-                    if (keys1 === null || !('count' + text(i) in keys1)) {
+                    const countPrefix0 = 'count' + text(i);
+                    const number1 = countPrefix0.value.trim().toLowerCase();
+                    if (keys1 === null || !(number1 in keys1)) {
                         countcount = i;
                     }
                     i++;
