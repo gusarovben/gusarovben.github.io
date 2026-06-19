@@ -119,7 +119,7 @@
         const checkUrl = dbUrl + '.json?shallow=true';
         const checkResponse = await fetch(checkUrl);
         const keys = await checkResponse.json();
-        const cheknumber = document.getElementById('otdelInput').value.trim().toLowerCase();
+        const cheknumber = document.getElementById('idnumber').value.trim().toLowerCase();
         
         sendbutton.addEventListener('click', async () => {
             sendbutton.disabled = true;
