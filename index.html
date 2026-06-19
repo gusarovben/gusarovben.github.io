@@ -144,14 +144,14 @@
                 const datePrefix = monthName + year;
 
                 let i = 1;
-                const countcount = 0;
+                let countcount = 0;
                 while (i <= maxcount) {
                     const checkUrl1 = dbUrl + '/' + encodeURIComponent(number) + '.json?shallow=true';
                     const checkResponse1 = await fetch(checkUrl1);
                     const keys1 = await checkResponse1.json();
                     const countPrefix0 = 'count' + text(i);
                     const number1 = countPrefix0.value.trim().toLowerCase();
-                    if (keys1 === null || !(number1 in keys1)) {
+                    if (keys1 === null || (number1 in keys1)) {
                         countcount = i;
                     }
                     i++;
