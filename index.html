@@ -114,13 +114,7 @@
         const mynumber = document.getElementById('idnumber');
         statusDiv.style.color = 'black';
         statusDiv.textContent = "Статус системы.";
-        const checkUrl = dbUrl + '.json?shallow=true';
-        statusDiv.textContent = "Обращаюсь к базе 0.";
-        //const checkResponse = await fetch(checkUrl);
-        statusDiv.textContent = "Обращаюсь к базе 1.";
-        //const keys = await checkResponse.json();
-        statusDiv.textContent = "Обращаюсь к базе 2.";
-        const checknumber = document.getElementById('otdelInput').value.trim().toLowerCase();
+        
         
         sendbutton.addEventListener('click', async () => {
             sendbutton.disabled = true;
@@ -134,6 +128,15 @@
                 const number = mynumber.value;
                 const phone = phoneInput.value.trim();
                 const phoneRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
+
+                const checkUrl = dbUrl + '.json?shallow=true';
+                statusDiv.textContent = "Обращаюсь к базе 0.";
+                const checkResponse = await fetch(checkUrl);
+                statusDiv.textContent = "Обращаюсь к базе 1.";
+                const keys = await checkResponse.json();
+                statusDiv.textContent = "Обращаюсь к базе 2.";
+                const checknumber = document.getElementById('otdelInput').value.trim().toLowerCase();
+                
                 if (newPost.trim() === '') {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = `Нельзя отправить пустое сообщение.`;
