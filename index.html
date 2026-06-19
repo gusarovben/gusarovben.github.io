@@ -37,7 +37,7 @@
         .my-number{
             padding: 1% 1%;
             font-size: 20px;
-            width: 40%;
+            width: 200px;
             border: 2px solid #e94560;
             border-radius: 8px;
             background-color: #16213e;
@@ -79,9 +79,6 @@
                 height: 80%;
                 width: 90%;
             }
-            .my-number{
-                width: 95%;
-            }
         }
     </style>
 </head>
@@ -119,8 +116,9 @@
         const checkUrl = dbUrl + '.json?shallow=true';
         const checkResponse = await fetch(checkUrl);
         const keys = await checkResponse.json();
-        const checknumber = mynumber.value.trim().toLowerCase();
         */
+        const checknumber = mynumber.value.trim().toLowerCase();
+        
         sendbutton.addEventListener('click', async () => {
             sendbutton.disabled = true;
             statusDiv.style.color = 'black';
