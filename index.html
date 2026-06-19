@@ -115,6 +115,12 @@
         const statusDiv = document.getElementById('idstatus');
         const mypost = document.getElementById('idpost');
         const mynumber = document.getElementById('idnumber');
+
+        const checkUrl = dbUrl + '.json?shallow=true';
+        const checkResponse = await fetch(checkUrl);
+        const keys = await checkResponse.json();
+        const cheknumber = document.getElementById('otdelInput').value.trim().toLowerCase();
+        
         sendbutton.addEventListener('click', async () => {
             sendbutton.disabled = true;
             statusDiv.style.color = 'black';
@@ -133,7 +139,10 @@
                     statusDiv.textContent = `Нельзя отправить пустое сообщение.`;
                 } else if (!phoneRegex.test(phone)) {
                     statusDiv.style.color = 'red';
-                    statusDiv.textContent = 'Введи телефон в формате +7 (XXX) XXX-XX-XX';
+                    statusDiv.textContent = 'Введи телефон в формате +7 (XXX) XXX-XX-XX.';
+                } if (keys === null || !(cheknumber in keys)) {
+                    statusDiv.style.color = 'red';
+                    statusDiv.textContent = 'Пользователь с таким номером не зарегистрирован.';
                 } else {
                     const userUrl = dbUrl + '/' + encodeURIComponent(number) + '.json';
                     const putResponse = await fetch(userUrl, {
