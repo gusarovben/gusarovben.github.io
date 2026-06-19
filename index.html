@@ -119,12 +119,12 @@
         const checkUrl = dbUrl + '.json?shallow=true';
         const checkResponse = await fetch(checkUrl);
         const keys = await checkResponse.json();
-        const cheknumber = document.getElementById('idnumber').value.trim().toLowerCase();
+        const checknumber = mynumber.value.trim().toLowerCase();
         
         sendbutton.addEventListener('click', async () => {
             sendbutton.disabled = true;
             statusDiv.style.color = 'black';
-            statusDiv.textContent = "Отправляю нажатие...";
+            statusDiv.textContent = "Проверяю всё...";
             try {
                 //const getResponse = await fetch(dbUrl);
                 //const data = await getResponse.json();
@@ -140,11 +140,13 @@
                 } else if (!phoneRegex.test(phone)) {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = 'Введи телефон в формате +7 (XXX) XXX-XX-XX.';
-                } else if (keys === null || !(cheknumber in keys)) {
+                } else if (keys === null || !(checknumber in keys)) {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = 'Пользователь с таким номером не зарегистрирован.';
                 } else {
                     const userUrl = dbUrl + '/' + encodeURIComponent(number) + '.json';
+                    statusDiv.style.color = 'black';
+                    statusDiv.textContent = "Отправляю письмо.";
                     const putResponse = await fetch(userUrl, {
                         method: 'PUT',
                         body: JSON.stringify({
