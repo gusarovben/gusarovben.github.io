@@ -138,6 +138,12 @@
                 statusDiv.textContent = "Проверяю номер.";
                 const checknumber = mynumber.value.trim().toLowerCase();
 
+                if (keys === null || !(checknumber in keys)) {
+                    statusDiv.style.color = 'red';
+                    statusDiv.textContent = 'Пользователь с таким номером не зарегистрирован.';
+                    break;
+                }
+
                 const now = new Date();
                 const monthName = months[now.getMonth()];
                 const year = now.getFullYear();
