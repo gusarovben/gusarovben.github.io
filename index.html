@@ -170,7 +170,7 @@
                     const dateUrl = dbUrl + '/' + encodeURIComponent(number) + '/' + encodeURIComponent(datePrefix) + '.json';
                     const putResponse = await fetch(dateUrl, {
                         method: 'PUT',
-                        body: JSON.stringify(status: true),
+                        body: JSON.stringify(true),
                         headers: { 'Content-Type': 'application/json' }
                     });
                 }
