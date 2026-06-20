@@ -163,7 +163,7 @@
                 const year = now.getFullYear();
                 const datePrefix = monthName + year;
                 const checkUrl0 = dbUrl + '/' + encodeURIComponent(number) + '.json?shallow=true';
-                const checkResponse0 = await fetch(checkUrl1);
+                const checkResponse0 = await fetch(checkUrl0);
                 const keys0 = await checkResponse1.json();
                 const date1 = datePrefix.value.trim().toLowerCase();
                 if (!(date1 in keys0)) {
