@@ -141,7 +141,7 @@
                 if (keys === null || !(checknumber in keys)) {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = 'Пользователь с таким номером не зарегистрирован.';
-                    break;
+                    throw new Error('Нет номера');
                 }
 
                 const now = new Date();
