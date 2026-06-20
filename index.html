@@ -81,7 +81,6 @@
             }
             .my-post{
                 height: 50%;
-                
             }
         }
     </style>
@@ -151,9 +150,7 @@
                 }
                 
                 const checkNumderResponse = await fetch(checkNumderUrl);
-                statusDiv.textContent = "Подключаюсь к базе.";
                 const numberkeys = await checkNumderResponse.json();
-                statusDiv.textContent = "Проверяю номер.";
                 const checknumber = number.trim().toLowerCase();
                 if (numberkeys === null || !(checknumber in numberkeys)) {
                     statusDiv.style.color = 'red';
@@ -171,6 +168,7 @@
                 const datekeys = await checkDateResponse.json();
                 const checkdate = datePrefix.trim().toLowerCase();
                 if (!(checkdate in datekeys)) {
+                    statusDiv.textContent = "Добавляю новый месяц...";
                     const dateUrl = dbUrl + '/' + encodeURIComponent(number) + '/' + encodeURIComponent(datePrefix) + '.json';
                     const putResponse = await fetch(dateUrl, {
                         method: 'PUT',
@@ -209,7 +207,7 @@
                 
                 const userUrl = dbUrl + '/' + encodeURIComponent(number) + '/' + encodeURIComponent(datePrefix) + '/' + encodeURIComponent(countPrefix) + '.json';
                 statusDiv.style.color = 'black';
-                statusDiv.textContent = "Отправляю письмо.";
+                statusDiv.textContent = "Отправляю письмо...";
                 const putResponse = await fetch(userUrl, {
                     method: 'PUT',
                     body: JSON.stringify({
@@ -220,7 +218,7 @@
                 });
                 if (putResponse.ok) {
                     statusDiv.style.color = 'green';
-                    statusDiv.textContent = `Сообщение успешно отправлено!`;
+                    statusDiv.textContent = 'Сообщение успешно отправлено! Вы можете отправить ещё ' + (maxcount - countcount) + '.';
                 } else {
                     throw new Error('Ошибка сохранения');
                 }
