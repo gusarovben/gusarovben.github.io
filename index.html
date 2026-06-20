@@ -121,6 +121,7 @@
     <script>
         sendbutton.addEventListener('click', async () => {
             sendbutton.disabled = true;
+            statusDiv.style.color = 'black';
             statusDiv.textContent = "Проверяю всё...";
             try {
                 //const getResponse = await fetch(dbUrl);
@@ -128,16 +129,28 @@
                 //const currentCount = data.count || 0; // Если база пуста, начинаем с 0
                 //const newCount = currentCount + 1;
                 const newPost = mypost.value;
+                if (newPost.trim() === '') {
+                    statusDiv.style.color = 'red';
+                    statusDiv.textContent = `Нельзя отправить пустое сообщение.`;
+                    sendbutton.disabled = false;
+                    return;
+                }
+                
                 const number = mynumber.value;
                 const phone = mynumber.value.trim();
                 const phoneRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
+                if (!phoneRegex.test(phone)) {
+                    statusDiv.style.color = 'red';
+                    statusDiv.textContent = 'Введите 10 цифр.'; //'Введи телефон в формате +7 (XXX) XXX-XX-XX.'
+                    sendbutton.disabled = false;
+                    return;
+                }
                 
                 const checkResponse = await fetch(checkUrl);
                 statusDiv.textContent = "Подключаюсь к базе.";
                 const keys = await checkResponse.json();
                 statusDiv.textContent = "Проверяю номер.";
                 const checknumber = mynumber.value.trim().toLowerCase();
-
                 if (keys === null || !(checknumber in keys)) {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = 'Пользователь с таким номером не зарегистрирован.';
@@ -165,37 +178,29 @@
                     i++;
                 }
                 const countPrefix = 'count' + countcount;
-                
-                if (newPost.trim() === '') {
-                    statusDiv.style.color = 'red';
-                    statusDiv.textContent = `Нельзя отправить пустое сообщение.`;
-                } else if (!phoneRegex.test(phone)) {
-                    statusDiv.style.color = 'red';
-                    statusDiv.textContent = 'Введи телефон в формате +7 (XXX) XXX-XX-XX.';
-                } else if (keys === null || !(checknumber in keys)) {
-                    statusDiv.style.color = 'red';
-                    statusDiv.textContent = 'Пользователь с таким номером не зарегистрирован.';
-                } else if (countcount === maxcount + 1) {
+                if (countcount === maxcount + 1) {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = 'Вы исчерпали свой лимит на этот месяц ' + maxcount + ' штук.';
+                    sendbutton.disabled = false;
+                    return;
+                }
+                
+                const userUrl = dbUrl + '/' + encodeURIComponent(number) + '/' + encodeURIComponent(datePrefix) + '/' + encodeURIComponent(countPrefix) + '.json';
+                statusDiv.style.color = 'black';
+                statusDiv.textContent = "Отправляю письмо.";
+                const putResponse = await fetch(userUrl, {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        text: newPost,
+                        time: new Date().toLocaleString()
+                    }),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                if (putResponse.ok) {
+                    statusDiv.style.color = 'green';
+                    statusDiv.textContent = `Сообщение успешно отправлено!`;
                 } else {
-                    const userUrl = dbUrl + '/' + encodeURIComponent(number) + '/' + encodeURIComponent(datePrefix) + '/' + encodeURIComponent(countPrefix) + '.json';
-                    statusDiv.style.color = 'black';
-                    statusDiv.textContent = "Отправляю письмо.";
-                    const putResponse = await fetch(userUrl, {
-                        method: 'PUT',
-                        body: JSON.stringify({
-                            text: newPost,
-                            time: new Date().toLocaleString()
-                        }),
-                        headers: { 'Content-Type': 'application/json' }
-                    });
-                    if (putResponse.ok) {
-                        statusDiv.style.color = 'green';
-                        statusDiv.textContent = `Сообщение успешно отправлено!`;
-                    } else {
-                        throw new Error('Ошибка сохранения');
-                    }
+                    throw new Error('Ошибка сохранения');
                 }
             } 
             catch (error) {
