@@ -142,6 +142,22 @@
                 const monthName = months[now.getMonth()];
                 const year = now.getFullYear();
                 const datePrefix = monthName + year;
+
+                let i = 1;
+                let countcount = 0;
+                while (i <= maxcount + 1) {
+                    const checkUrl1 = dbUrl + '/' + encodeURIComponent(number) + '/' + encodeURIComponent(datePrefix) + '.json?shallow=true';
+                    const checkResponse1 = await fetch(checkUrl1);
+                    const keys1 = await checkResponse1.json();
+                    const countPrefix0 = 'count' + i;
+                    const number1 = countPrefix0.trim().toLowerCase();
+                    if (!(number1 in keys1)) {
+                        countcount = i;
+                        break;
+                    }
+                    i++;
+                }
+                const countPrefix = 'count' + countcount;
                 
                 if (newPost.trim() === '') {
                     statusDiv.style.color = 'red';
@@ -152,28 +168,10 @@
                 } else if (keys === null || !(checknumber in keys)) {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = 'Пользователь с таким номером не зарегистрирован.';
+                } else if (countcount === maxcount + 1) {
+                    statusDiv.style.color = 'red';
+                    statusDiv.textContent = 'Вы исчерпали свой лимит на этот месяц ' + maxcount + ' штук.';
                 } else {
-
-                    let i = 1;
-                    let countcount = 0;
-                    while (i <= maxcount + 1) {
-                        const checkUrl1 = dbUrl + '/' + encodeURIComponent(number) + '/' + encodeURIComponent(datePrefix) + '.json?shallow=true';
-                        const checkResponse1 = await fetch(checkUrl1);
-                        const keys1 = await checkResponse1.json();
-                        const countPrefix0 = 'count' + i;
-                        const number1 = countPrefix0.trim().toLowerCase();
-                        if (!(number1 in keys1)) {
-                            countcount = i;
-                            break;
-                        }
-                        i++;
-                    }
-                    const countPrefix = 'count' + countcount;
-                    if (countcount === maxcount + 1) {
-                        statusDiv.style.color = 'red';
-                        statusDiv.textContent = 'Вы исчерпали свой лимит на этот месяц ' + maxcount + ' штук.';
-                        break;
-                    }
                     const userUrl = dbUrl + '/' + encodeURIComponent(number) + '/' + encodeURIComponent(datePrefix) + '/' + encodeURIComponent(countPrefix) + '.json';
                     statusDiv.style.color = 'black';
                     statusDiv.textContent = "Отправляю письмо.";
