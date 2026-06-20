@@ -108,7 +108,7 @@
     </script>
     <script>
         const dbUrl = "https://ne-dolgiy-yaschik-default-rtdb.europe-west1.firebasedatabase.app/yaschik";
-        const checkUrl = dbUrl + '.json?shallow=true';
+        const checkNumderUrl = dbUrl + '.json?shallow=true';
         const sendbutton = document.getElementById('idsendbutton');
         const statusDiv = document.getElementById('idstatus');
         const mypost = document.getElementById('idpost');
@@ -137,21 +137,21 @@
                 }
                 
                 const number = mynumber.value;
-                const phone = mynumber.value.trim();
-                const phoneRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
-                if (!phoneRegex.test(phone)) {
+                const checkphone = number.trim();
+                const phoneMask = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
+                if (!phoneMask.test(checkphone)) {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = 'Введите 10 цифр.'; //'Введи телефон в формате +7 (XXX) XXX-XX-XX.'
                     sendbutton.disabled = false;
                     return;
                 }
                 
-                const checkResponse = await fetch(checkUrl);
+                const checkNumderResponse = await fetch(checkNumderUrl);
                 statusDiv.textContent = "Подключаюсь к базе.";
-                const keys = await checkResponse.json();
+                const numberkeys = await checkNumderResponse.json();
                 statusDiv.textContent = "Проверяю номер.";
-                const checknumber = mynumber.value.trim().toLowerCase();
-                if (keys === null || !(checknumber in keys)) {
+                const checknumber = number.trim().toLowerCase();
+                if (numberkeys === null || !(checknumber in numberkeys)) {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = 'Пользователь с таким номером не зарегистрирован.';
                     sendbutton.disabled = false;
@@ -162,11 +162,11 @@
                 const monthName = months[now.getMonth()];
                 const year = now.getFullYear();
                 const datePrefix = monthName + year;
-                const checkUrl0 = dbUrl + '/' + encodeURIComponent(number) + '.json?shallow=true';
-                const checkResponse0 = await fetch(checkUrl0);
-                const keys0 = await checkResponse0.json();
-                const date1 = datePrefix.trim().toLowerCase();
-                if (!(date1 in keys0)) {
+                const checkDateUrl = dbUrl + '/' + encodeURIComponent(number) + '.json?shallow=true';
+                const checkDateResponse = await fetch(checkDateUrl);
+                const datekeys = await checkDateResponse.json();
+                const checkdate = datePrefix.trim().toLowerCase();
+                if (!(checkdate in datekeys)) {
                     const dateUrl = dbUrl + '/' + encodeURIComponent(number) + '/' + encodeURIComponent(datePrefix) + '.json';
                     const putResponse = await fetch(dateUrl, {
                         method: 'PUT',
@@ -178,12 +178,12 @@
                 let i = 1;
                 let countcount = 0;
                 while (i <= maxcount + 1) {
-                    const checkUrl1 = dbUrl + '/' + encodeURIComponent(number) + '/' + encodeURIComponent(datePrefix) + '.json?shallow=true';
-                    const checkResponse1 = await fetch(checkUrl1);
-                    const keys1 = await checkResponse1.json();
+                    const checkCountUrl = dbUrl + '/' + encodeURIComponent(number) + '/' + encodeURIComponent(datePrefix) + '.json?shallow=true';
+                    const checkCountResponse = await fetch(checkCountUrl);
+                    const countkeys = await checkCountResponse.json();
                     const countPrefix0 = 'count' + i;
-                    const number1 = countPrefix0.trim().toLowerCase();
-                    if (!(number1 in keys1)) {
+                    const checkcount = countPrefix0.trim().toLowerCase();
+                    if (!(checkcount in countkeys)) {
                         countcount = i;
                         break;
                     }
