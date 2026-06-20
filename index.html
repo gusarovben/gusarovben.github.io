@@ -181,8 +181,8 @@
                     const checkCountUrl = dbUrl + '/' + encodeURIComponent(number) + '/' + encodeURIComponent(datePrefix) + '.json?shallow=true';
                     const checkCountResponse = await fetch(checkCountUrl);
                     const countkeys = await checkCountResponse.json();
-                    const countPrefix0 = 'count' + i;
-                    const checkcount = countPrefix0.trim().toLowerCase();
+                    const countPrefix = 'count' + i;
+                    const checkcount = countPrefix.trim().toLowerCase();
                     if (!(checkcount in countkeys)) {
                         countcount = i;
                         break;
