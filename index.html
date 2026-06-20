@@ -141,7 +141,7 @@
                 if (keys === null || !(checknumber in keys)) {
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = 'Пользователь с таким номером не зарегистрирован.';
-                    throw new Error('Нет номера');
+                    sendbutton.disabled = false;
                 }
 
                 const now = new Date();
@@ -199,7 +199,7 @@
             } 
             catch (error) {
                 statusDiv.style.color = 'red';
-                //statusDiv.textContent = 'Ошибка связи с сервером.';
+                statusDiv.textContent = 'Ошибка связи с сервером.';
                 console.error(error);
             }
             sendbutton.disabled = false;
