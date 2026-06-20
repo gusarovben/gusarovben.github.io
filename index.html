@@ -165,7 +165,7 @@
                 const checkUrl0 = dbUrl + '/' + encodeURIComponent(number) + '.json?shallow=true';
                 const checkResponse0 = await fetch(checkUrl0);
                 const keys0 = await checkResponse0.json();
-                const date1 = datePrefix.value.trim().toLowerCase();
+                const date1 = datePrefix.trim().toLowerCase();
                 if (!(date1 in keys0)) {
                     const dateUrl = dbUrl + '/' + encodeURIComponent(number) + '/' + encodeURIComponent(datePrefix) + '.json';
                     const putResponse = await fetch(dateUrl, {
