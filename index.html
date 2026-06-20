@@ -194,6 +194,12 @@
                     statusDiv.style.color = 'red';
                     statusDiv.textContent = 'Вы исчерпали свой лимит на этот месяц ' + maxcount + ' штук.';
                     sendbutton.disabled = false;
+                    const klvUrl = dbUrl + '/' + encodeURIComponent(number) + '/' + encodeURIComponent(datePrefix) + '.json';
+                    const putResponse = await fetch(klvUrl, {
+                        method: 'PUT',
+                        body: JSON.stringify({status: false}),
+                        headers: { 'Content-Type': 'application/json' }
+                    });
                     return;
                 }
                 
