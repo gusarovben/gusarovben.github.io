@@ -84,6 +84,82 @@
             }
         }
     </style>
+    <style>
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal {
+            background-color: #1a1a2e;
+            border: 2px solid #e94560;
+            border-radius: 16px;
+            padding: 30px 25px;
+            text-align: center;
+            max-width: 350px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+        .overlay.active .modal {
+            transform: scale(1);
+        }
+        .modal p {
+            color: white;
+            font-size: 18px;
+            margin: 0 0 25px 0;
+            line-height: 1.5;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        .btn-yes {
+            background-color: #e94560;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        .btn-yes:hover {
+            background-color: #ff6b81;
+        }
+        .btn-no {
+            background-color: transparent;
+            color: #a8dadc;
+            border: 2px solid #a8dadc;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .btn-no:hover {
+            background-color: #a8dadc;
+            color: #1a1a2e;
+        }
+    </style>
 </head>
 <body>
     <div class="first-box">
@@ -92,6 +168,15 @@
         <div class="element"><input id="idnumber" type="tel" placeholder="+7 (XXX) XXX-XX-XX" maxlength="18" class="my-number"></div>
         <button id="idsendbutton" class="send-button">Передать привет</button>
         <div id="idstatus" class="element"></div>
+    </div>
+        <div class="overlay" id="confirmOverlay">
+        <div class="modal">
+            <p>Вы точно хотите отправить письмо?</p>
+            <div class="modal-buttons">
+                <button class="btn-yes" id="btnYes">Да</button>
+                <button class="btn-no" id="btnNo">Нет</button>
+            </div>
+        </div>
     </div>
     <script>
         const mynumber = document.getElementById('idnumber');
@@ -120,6 +205,26 @@
             'july', 'august', 'september', 'october', 'november', 'december'
         ];
         const maxcount = 3;
+    </script>
+    <script>
+        const overlay = document.getElementById('confirmOverlay');
+        const btnYes = document.getElementById('btnYes');
+        const btnNo = document.getElementById('btnNo');
+        function showConfirm() {
+            return new Promise((resolve) => {
+                overlay.classList.add('active');
+        
+                btnYes.onclick = () => {
+                    overlay.classList.remove('active');
+                    resolve(true);   // Вернули "да"
+                };
+        
+                btnNo.onclick = () => {
+                    overlay.classList.remove('active');
+                    resolve(false);  // Вернули "нет"
+                };
+            });
+        }
     </script>
     <script>
         sendbutton.addEventListener('click', async () => {
@@ -204,7 +309,12 @@
                     });
                     return;
                 }
-                
+                const confirmed = await showConfirm();
+                if (!confirmed) {
+                    return; // Нажал «Нет» — выходим
+                }
+                button.disabled = true;
+                statusDiv.textContent = 'Отправляю...';
                 const userUrl = dbUrl + '/' + encodeURIComponent(number) + '/' + encodeURIComponent(datePrefix) + '/' + encodeURIComponent(countPrefix) + '.json';
                 statusDiv.style.color = 'black';
                 statusDiv.textContent = "Отправляю письмо...";
