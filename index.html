@@ -204,7 +204,7 @@
             'january', 'february', 'march', 'april', 'may', 'june',
             'july', 'august', 'september', 'october', 'november', 'december'
         ];
-        const maxcount = 3;
+        const maxcount = 100;
     </script>
     <script>
         const overlay = document.getElementById('confirmOverlay');
@@ -311,10 +311,10 @@
                 }
                 const confirmed = await showConfirm();
                 if (!confirmed) {
+                    sendbutton.disabled = false;
+                    statusDiv.textContent = "";
                     return; // Нажал «Нет» — выходим
                 }
-                button.disabled = true;
-                statusDiv.textContent = 'Отправляю...';
                 const userUrl = dbUrl + '/' + encodeURIComponent(number) + '/' + encodeURIComponent(datePrefix) + '/' + encodeURIComponent(countPrefix) + '.json';
                 statusDiv.style.color = 'black';
                 statusDiv.textContent = "Отправляю письмо...";
