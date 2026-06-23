@@ -1,7 +1,7 @@
 // Главный обработчик отправки
 sendbutton.addEventListener('click', async () => {
     sendbutton.disabled = true;
-    statusDiv.style.color = 'black';
+    statusDiv.style.color = 'white';
     statusDiv.textContent = "Проверяю всё...";
 
     try {
@@ -99,7 +99,7 @@ sendbutton.addEventListener('click', async () => {
 
         // Отправка
         const userUrl = dbUrl + '/' + encodeURIComponent(number) + '/' + encodeURIComponent(datePrefix) + '/' + encodeURIComponent(countPrefix) + '.json';
-        statusDiv.style.color = 'black';
+        statusDiv.style.color = 'white';
         statusDiv.textContent = "Отправляю письмо...";
         const putResponse = await fetch(userUrl, {
             method: 'PUT',
