@@ -16,7 +16,8 @@ body {
     left: 25%;
     height: 75%;
     width: 50%;
-    color: black;
+    color: yellow;
+    text-stroke: 3px black;
     font-family: Arial, sans-serif;
     font-weight: bold;
 }
@@ -25,11 +26,12 @@ body {
     resize: none;
     height: 75%;
     width: 100%;
-    color: black;
+    background-color: black;
+    color: white;
     font-size: 125%;
     font-family: Arial, sans-serif;
     font-weight: bold;
-    border-radius: 7px;
+    border-radius: 7px yellow;
 }
 
 .my-number {
