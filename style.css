@@ -16,10 +16,12 @@ body {
     left: 25%;
     height: 75%;
     width: 50%;
+    font-size: 20px;
     color: yellow;
     text-stroke: 3px black;
     font-family: Arial, sans-serif;
     font-weight: bold;
+    text-shadow: 1px 1px 0px black;
 }
 
 .my-post {
@@ -31,7 +33,10 @@ body {
     font-size: 125%;
     font-family: Arial, sans-serif;
     font-weight: bold;
-    border-radius: 7px yellow;
+    border-radius: 7px;
+    border-color: yellow;
+    border-width: 4px;
+    outline: 3px solid black;
 }
 
 .my-number {
@@ -39,10 +44,11 @@ body {
     font-size: 20px;
     width: 200px;
     border: 2px solid yellow;
-    border-radius: 8px;
+    border-radius: 7px;
     background-color: black;
     color: white;
-    outline: none;
+    border-width: 3px;
+    outline: 2px solid black;
 }
 
 .send-button {
