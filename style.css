@@ -161,7 +161,7 @@ body {
 }
 
 .btn-yes:hover {
-    background-color: #ff6b81;
+    background-color: #F59D2AFF;
 }
 
 .btn-no {
@@ -177,6 +177,6 @@ body {
 }
 
 .btn-no:hover {
-    background-color: #a8dadc;
-    color: #1a1a2e;
+    background-color: #F59D2AFF;
+    //color: #1a1a2e;
 }
