@@ -90,7 +90,7 @@
         });
 
         // Шаг 1: отправить код
-        sendCodeBtn.addEventListener('yaschik', async () => {
+        sendCodeBtn.addEventListener('click', async () => {
             const phone = phoneInput.value.trim();
             const phoneMask = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
             if (!phoneMask.test(phone)) {
@@ -111,6 +111,7 @@
             }
 
             // Сохраняем в Firebase (имитация отправки SMS)
+            phoneStatus.textContent = 'Синхронизирую с базой...';
             const codeUrl = dbUrl + '/' + encodeURIComponent(phone) + '/code.json';
             await fetch(codeUrl, {
                 method: 'PUT',
@@ -128,7 +129,7 @@
         });
 
         // Шаг 2: проверить код
-        verifyCodeBtn.addEventListener('yaschik', async () => {
+        verifyCodeBtn.addEventListener('click', async () => {
             const userCode = codeInput.value.trim().toUpperCase();
             if (userCode.length !== 6) {
                 codeStatus.style.color = 'red';
