@@ -13,3 +13,6 @@ const months = [
     'july', 'august', 'september', 'october', 'november', 'december'
 ];
 const maxcount = 100;
+
+// Экспорт для других страниц
+window.dbUrl = dbUrl;
