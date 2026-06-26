@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .login-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+        }
+        .login-box input {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 8px;
+            border: 2px solid yellow;
+            background: black;
+            color: white;
+            text-align: center;
+            width: 250px;
+        }
+        .login-box button {
+            margin: 5px;
+            padding: 10px 25px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            background: yellow;
+            color: black;
+            font-weight: bold;
+            border: none;
+        }
+        #codeSection {
+            display: none;
+        }
+    </style>
+</head>
+<body style="background: #1a1a2e;">
+    <div class="login-box">
+        <h2>Вход / Регистрация</h2>
+        
+        <!-- Шаг 1: телефон -->
+        <div id="phoneSection">
+            <input id="phoneInput" type="tel" placeholder="+7 (XXX) XXX-XX-XX" maxlength="18">
+            <button id="sendCodeBtn">Получить код</button>
+            <div id="phoneStatus" style="font-size: 14px; margin-top: 10px;"></div>
+        </div>
+        
+        <!-- Шаг 2: код (скрыт сначала) -->
+        <div id="codeSection">
+            <p>Введите код из 6 букв:</p>
+            <input id="codeInput" type="text" placeholder="ABCDEF" maxlength="6" style="text-transform: uppercase;">
+            <button id="verifyCodeBtn">Подтвердить</button>
+            <div id="codeStatus" style="font-size: 14px; margin-top: 10px;"></div>
+        </div>
+    </div>
+
+    <script src="js/firebase-config.js"></script>
+    <script>
+        const phoneInput = document.getElementById('phoneInput');
+        const sendCodeBtn = document.getElementById('sendCodeBtn');
+        const phoneStatus = document.getElementById('phoneStatus');
+        const phoneSection = document.getElementById('phoneSection');
+        const codeSection = document.getElementById('codeSection');
+        const codeInput = document.getElementById('codeInput');
+        const verifyCodeBtn = document.getElementById('verifyCodeBtn');
+        const codeStatus = document.getElementById('codeStatus');
+
+        let currentPhone = '';
+        let generatedCode = '';
+
+        // Маска телефона
+        phoneInput.addEventListener('input', () => {
+            let value = phoneInput.value.replace(/\D/g, '');
+            if (value.length > 0 && value[0] !== '7') value = '7' + value.slice(0, 10);
+            value = value.slice(0, 11);
+            let formatted = '+7';
+            if (value.length > 1) formatted += ' (' + value.slice(1, 4);
+            if (value.length > 4) formatted += ') ' + value.slice(4, 7);
+            if (value.length > 7) formatted += '-' + value.slice(7, 9);
+            if (value.length > 9) formatted += '-' + value.slice(9, 11);
+            phoneInput.value = formatted;
+        });
+
+        // Шаг 1: отправить код
+        sendCodeBtn.addEventListener('click', async () => {
+            const phone = phoneInput.value.trim();
+            const phoneMask = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
+            if (!phoneMask.test(phone)) {
+                phoneStatus.style.color = 'red';
+                phoneStatus.textContent = 'Введите номер полностью';
+                return;
+            }
+
+            sendCodeBtn.disabled = true;
+            phoneStatus.style.color = 'white';
+            phoneStatus.textContent = 'Генерирую код...';
+
+            // Генерируем 6 случайных букв
+            generatedCode = '';
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            for (let i = 0; i < 6; i++) {
+                generatedCode += letters[Math.floor(Math.random() * letters.length)];
+            }
+
+            // Сохраняем в Firebase (имитация отправки SMS)
+            const codeUrl = dbUrl + '/' + encodeURIComponent(phone) + '/code.json';
+            await fetch(codeUrl, {
+                method: 'PUT',
+                body: JSON.stringify({ code: generatedCode, time: new Date().toLocaleString() }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            // Код «пришёл» — показываем его на экране
+            phoneStatus.style.color = 'lime';
+            phoneStatus.textContent = 'Код отправлен! (СМС: ' + generatedCode + ')';
+            currentPhone = phone;
+            phoneSection.style.display = 'none';
+            codeSection.style.display = 'block';
+            sendCodeBtn.disabled = false;
+        });
+
+        // Шаг 2: проверить код
+        verifyCodeBtn.addEventListener('click', async () => {
+            const userCode = codeInput.value.trim().toUpperCase();
+            if (userCode.length !== 6) {
+                codeStatus.style.color = 'red';
+                codeStatus.textContent = 'Введите 6 букв';
+                return;
+            }
+
+            if (userCode === generatedCode) {
+                // Сохраняем факт авторизации
+                localStorage.setItem('auth_phone', currentPhone);
+                localStorage.setItem('auth_time', Date.now().toString());
+                window.location.href = 'index.html';
+            } else {
+                codeStatus.style.color = 'red';
+                codeStatus.textContent = 'Неверный код';
+            }
+        });
+    </script>
+</body>
+</html>
