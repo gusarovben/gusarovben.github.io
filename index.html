@@ -9,6 +9,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <script>
+        // Проверка авторизации
+        const authPhone = localStorage.getItem('auth_phone');
+        const authTime = localStorage.getItem('auth_time');
+        const now = Date.now();
+        
+        // Если нет авторизации или прошло больше 24 часов — на вход
+        if (!authPhone || !authTime || (now - parseInt(authTime)) > 86400000) {
+            localStorage.removeItem('auth_phone');
+            localStorage.removeItem('auth_time');
+            window.location.href = 'login.html';
+        }
+    </script>
     <div class="first-box">
         <text>Здравствуйте! Напишите письмо, потом отправьте его.</text>
         <textarea id="idpost" placeholder="Что вас беспокоит?" class="my-post"></textarea>
@@ -33,5 +46,9 @@
     <script src="phone-mask.js"></script>
     <script src="modal.js"></script>
     <script src="main.js"></script>
+    <button onclick="localStorage.clear(); window.location.href='login.html';" 
+        style="position: fixed; bottom: 10px; right: 10px; background: red; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">
+        Выйти
+    </button>
 </body>
 </html>
